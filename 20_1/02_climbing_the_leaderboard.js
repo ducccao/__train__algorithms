@@ -1,59 +1,79 @@
-let log = console.log;
-
-// split a half scores
-function breakTheScores(scores) {
-  let mid = Math.floor(scores.length / 2);
-  let left_scores = [];
-  let right_scores = [];
-
-  for (let i = 0; i < mid; i++) {
-    left_scores.push(scores[i]);
-    right_scores.push(scores[scores.length - i - 1]);
+function distinguishScores(scores) {
+  let temp = [...scores];
+  for (let i = 0; i < temp.length; i++) {
+    for (let j = i + 1; j < temp.length; j++) {
+      if (temp[i] === temp[j]) {
+        temp.splice(i, 1);
+      }
+    }
   }
-
-  if (scores.length % 2 !== 0) {
-    right_scores.push(scores[mid]);
-  }
-
-  return {
-    left_scores,
-    right_scores,
-  };
+  return temp;
 }
 
-// handle scores
-function handleScores(scores, size) {
-  // 100 90 90 80 75 60
-  // 1   2  2  3  4  5
+function rankOfTheLeaderBoard(scores) {
+  let distingushScores = distinguishScores(scores);
+  let ranki = 1;
+  let rank = [];
+  for (let i = 0; i < distingushScores.length; ++i) {
+    rank.push(ranki++);
+  }
+  //  console.log(rank);
+  return rank;
+}
 
-  let a = [];
+function scoresRank(scores, rank) {
+  const tScore = [...scores];
+  const tRank = [...rank];
+  let scrobj = [];
 
-  for (let i = 0; i < scores.length; i++) {
-    let left__right = breakTheScores(scores);
-
-    let left_break = breakTheScores(left__right.left_scores);
-    let right_break = breakTheScores(left__right.right_scores);
-
-    a.push(left__right);
+  for (let i = 0; i < tScore.length; ++i) {
+    scrobj.push({
+      value: tScore[i],
+      rank: tRank[i],
+    });
   }
 
-  log(a);
-  // 0   1   2  3  4  5  6
-  // 100 90 90 80 80 75 60
-  // 1  2    3  4  5 6
-  //  1 2   2  3   4 5
-  // rank = len = 6
-  // if a[i]=a[j]= rank = 6-(i+j)-1 = 3
-  // a[3]=a[4] => rank = 6-i= 6-3 = 3
+  return scrobj;
 }
 
 // Complete the climbingLeaderboard function below.
 function climbingLeaderboard(scores, alice) {
-  log(scores);
-  handleScores(scores);
+  let rank = rankOfTheLeaderBoard(scores);
+  let scrobj = scoresRank(distinguishScores(scores), rank);
+  console.log(rank);
+
+  let rs = [];
+
+  for (let oj of scrobj) {
+    console.log(oj);
+  }
+  for (let j = 0; j < alice.length; j++) {
+    for (let i = 0; i < scores.length; i++) {
+      if (alice[j] < scores[scores.length - 1]) {
+        rs.push(rank[rank.length - 1]);
+        break;
+      }
+
+      if (alice[j] > scores[0]) {
+        rs.push(rank[0]);
+        break;
+      }
+
+      for (let oj of scrobj) {
+        if (oj.value < alice[j]) {
+          rs.push(oj.rank + 1);
+          break;
+        }
+      }
+    }
+  }
+  return rs;
 }
 
-let scores = [100, 90, 90, 80, 75, 60];
-let alice = [50, 65, 77, 90, 102];
+const scores = [100, 100, 50, 40, 40, 20, 10];
+const alice = [5, 25, 50, 120];
 
-climbingLeaderboard(scores, alice);
+distinguishScores(scores);
+rankOfTheLeaderBoard(scores);
+
+console.log(climbingLeaderboard(scores, alice));
