@@ -1,4 +1,4 @@
-class ListNode {
+class NodeList {
   constructor(data) {
     this.data = data;
     this.next = null;
@@ -6,49 +6,44 @@ class ListNode {
 }
 
 class LinkedList {
-  constructor(head = null) {
-    this.head = head;
+  constructor() {
+    this.head = null;
+    this.size = 0;
   }
 
-  size() {
-    let count = 0;
-    let node = this.head;
-    while (node) {
-      count++;
-      node = node.next;
+  addLast(data) {
+    var node = new NodeList(data);
+    var current;
+
+    if (this.head === null) {
+      this.head = node;
+    } else {
+      current = this.head;
+      while (current.next !== null) {
+        current = current.next;
+      }
+      current.next = node;
     }
-    return count;
+    this.size++;
   }
 
   clear() {
     this.head = null;
-  }
-
-  getLast() {
-    let lastNode = this.head;
-    if (lastNode) {
-      while (lastNode.next) {
-        lastNode = lastNode.next;
-      }
-    }
-    return lastNode;
-  }
-
-  getFirst() {
-    return this.head;
+    this.size = 0;
   }
 }
 
-let node1 = new ListNode(1);
-let node2 = new ListNode(2);
-let node3 = new ListNode(3);
+let node1 = new NodeList(1);
+let node2 = new NodeList(2);
+let node3 = new NodeList(3);
 node2.next = node3;
 node1.next = node2;
 
-let list = new LinkedList(node1);
-console.log(list.size());
+console.log(node1);
 
-console.log("Last node ", list.getLast());
+let list = new LinkedList();
+list.addLast(1);
+list.addLast(2);
+list.addLast(3);
 
-list.clear();
-console.log(list);
+console.log("List after insert ", list);
