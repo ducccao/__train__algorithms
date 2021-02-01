@@ -1,30 +1,31 @@
-function processs(a, q) {
-  for (let i = q[0] - 1; i <= q[1] - 1; ++i) {
-    if (a[i] === undefined) {
-      a[i] = 0;
+function arrayManipulation(n, queries) {
+  let arr = [];
+
+  for (let i = 0; i < n; ++i) {
+    arr.push(0);
+  }
+  //console.log(arr);
+  //console.log(arr);
+
+  for (let q of queries) {
+    arr[q[0] - 1] += q[2];
+    if (q[1] !== arr.length) {
+      arr[q[1]] -= q[2];
     }
-    a[i] += q[2];
-  }
-  return a;
-}
-
-// Complete the arrayManipulation function below.
-function arrayManipulation(n, q) {
-  let a = [];
-
-  a.length = n;
-
-  let ret = [];
-
-  // console.log(firstArr);
-
-  for (let i = 0; i < q.length; ++i) {
-    ret = processs(a, q[i]);
   }
 
-  ret.length--;
+  let max = 0;
+  let temp = 0;
 
-  return Math.max(...ret);
+  for (let a of arr) {
+    temp += a;
+    console.log(a);
+    if (temp > max) {
+      max = temp;
+    }
+    //console.log(temp);
+  }
+  return max;
 }
 
 const n = 10;
