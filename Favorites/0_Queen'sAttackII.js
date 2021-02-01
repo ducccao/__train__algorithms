@@ -28,6 +28,7 @@ function initObstaclesPos(n, boardQueenPos, obstacles) {
   // input: boardQueenPos, rq,cq
   // output: board n x n, value board[i][j]=0 and position of Queen is 'Q' and position of Obsatcles are 'X'
   for (let i = 0; i < obstacles.length; ++i) {
+    //boardQueenPos[n - obstacles[i][0]][n - obstacles[i][1]] = "X";
     boardQueenPos[n - obstacles[i][0]][n - obstacles[i][1]] = "X";
   }
   return boardQueenPos;
@@ -138,7 +139,19 @@ function attackDiagonalBottomRight(n, boardObstaclesPos, rq, cq) {
   let ret = 0;
 
   for (let i = n - rq; i < n; i++) {
-    console.log(boardObstaclesPos[i][n - i - 1]);
+    if (boardObstaclesPos[i][i] !== "X") ret++;
+    if (boardObstaclesPos[i][i] === "X") break;
+  }
+
+  return ret - 1;
+}
+
+function attackDiagonalBottomLeft(n, boardObstaclesPos, rq, cq) {
+  let ret = 0;
+
+  for (let i = n - rq; i < n; i++) {
+    if (boardObstaclesPos[i][n - i - 1] !== "X") ret++;
+    if (boardObstaclesPos[i][n - i - 1] === "X") break;
   }
 
   return ret - 1;
@@ -173,6 +186,12 @@ function queensAttack(n, k, rq, cq, obstacles) {
     rq,
     cq
   );
+  let countDiagonalBottomLeft = attackDiagonalBottomLeft(
+    n,
+    boardObstaclesPos,
+    rq,
+    cq
+  );
   return (
     countLeft +
     countRight +
@@ -180,17 +199,18 @@ function queensAttack(n, k, rq, cq, obstacles) {
     countBottom +
     countDiagonalTopLeft +
     countDiagonalTopRight +
-    countDiagonalBottomRight
+    countDiagonalBottomRight +
+    countDiagonalBottomLeft
   );
 }
 
 const n = 5;
 const k = 3;
-const rq = 3;
+const rq = 4;
 const cq = 3;
 const obstacles = [
   [5, 5],
   [4, 2],
   [2, 3],
 ];
-queensAttack(n, k, rq, cq, obstacles);
+console.log(queensAttack(n, k, rq, cq, obstacles));
