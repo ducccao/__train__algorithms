@@ -145,12 +145,15 @@ function attackDiagonalTopRight(n, boardObstaclesPos, rq, cq) {
 function attackDiagonalBottomRight(n, boardObstaclesPos, rq, cq) {
   let ret = 0;
 
-  // 43
-  // i 1 2 3 4
-
+  // 44
+  // i 0 1 2 3
+  //
   // col 2 3 4
+  // 0 1 2 3
+
   for (let i = n - cq; i < n; i++) {
-    // console.log(boardObstaclesPos[i - 1][i]);
+    //console.log(i);
+    console.log(boardObstaclesPos[i][i]);
     if (boardObstaclesPos[i][i] !== "X") ret++;
     if (boardObstaclesPos[i][i] === "X") break;
   }
@@ -167,20 +170,15 @@ function attackDiagonalBottomLeft(n, boardObstaclesPos, rq, cq) {
   // 2 1
   // 3 0
 
-  // rq 4 cq 3 n 4
+  // i 3 2 1
+  // a[n-i-1][i-1]
 
-  // i 1 0
-  // r 0 1
-  // c 1 0
-
-  for (let i = n - cq; i >= 0; --i) {
-    //console.log(i);
-    //console.log(boardObstaclesPos[n - cq - i][i]);
-    if (boardObstaclesPos[n - cq - i][i] !== "X") ret++;
-    if (boardObstaclesPos[n - cq - i][i] === "X") break;
-    ///console.log(boardObstaclesPos[i][i]);
-
-    // if (i < 0) return 0;
+  for (let i = n - cq; i > 0; --i) {
+    // console.log(boardObstaclesPos[n - i - 1][i - 1]);
+    console.log(i);
+    if (i < 0) {
+      return 0;
+    }
   }
 
   return ret - 1;
@@ -191,61 +189,15 @@ function queensAttack(n, k, rq, cq, obstacles) {
   let board = initBoard(n);
   let boardQueenPos = initQueenPos(board, rq, cq);
   let boardObstaclesPos = initObstaclesPos(n, boardQueenPos, obstacles);
-  //  console.log(boardObstaclesPos);
-  let countLeft = attackLeft(n, boardObstaclesPos, rq, cq);
-  // console.log("left ", countLeft);
-  let countRight = attackRight(n, boardObstaclesPos, rq, cq);
-  //console.log("right ", countRight);
-
-  let countTop = attackTop(n, boardObstaclesPos, rq, cq);
-  // console.log("top ", countTop);
-
-  let countBottom = attackBottom(n, boardObstaclesPos, rq, cq);
-  // console.log("countBottom ", countBottom);
-
-  let countDiagonalTopLeft = attackDiagonalTopLeft(
-    n,
-    boardObstaclesPos,
-    rq,
-    cq
-  );
-  // console.log("countDiagonalTopLeft ", countDiagonalTopLeft);
-
-  let countDiagonalTopRight = attackDiagonalTopRight(
+  console.log(boardObstaclesPos);
+  let countDiagonalBottomRight = attackDiagonalBottomLeft(
     n,
     boardObstaclesPos,
     rq,
     cq
   );
 
-  //console.log("countDiagonalTopRight ", countDiagonalTopRight);
-
-  let countDiagonalBottomRight = attackDiagonalBottomRight(
-    n,
-    boardObstaclesPos,
-    rq,
-    cq
-  );
-  // console.log("countDiagonalBottomRight ", countDiagonalBottomRight);
-
-  let countDiagonalBottomLeft = attackDiagonalBottomLeft(
-    n,
-    boardObstaclesPos,
-    rq,
-    cq
-  );
-  // console.log("countDiagonalBottomLeft ", countDiagonalBottomLeft);
-
-  return (
-    countLeft +
-    countRight +
-    countTop +
-    countBottom +
-    countDiagonalTopLeft +
-    countDiagonalTopRight +
-    countDiagonalBottomRight +
-    countDiagonalBottomLeft
-  );
+  return countDiagonalBottomRight;
 }
 
 // const n = 5;
@@ -259,9 +211,12 @@ function queensAttack(n, k, rq, cq, obstacles) {
 // ];
 
 const n = 4;
-const k = 0;
+const k = 2;
 const rq = 4;
 const cq = 4;
-const obstacles = [];
+const obstacles = [
+  [3, 3],
+  [2, 2],
+];
 
 console.log(queensAttack(n, k, rq, cq, obstacles));
