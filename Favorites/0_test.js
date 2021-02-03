@@ -173,12 +173,10 @@ function attackDiagonalBottomLeft(n, boardObstaclesPos, rq, cq) {
   // i 3 2 1
   // a[n-i-1][i-1]
 
-  for (let i = n - cq; i > 0; --i) {
+  for (let i = cq; i > 0; --i) {
     // console.log(boardObstaclesPos[n - i - 1][i - 1]);
-    console.log(i);
-    if (i < 0) {
-      return 0;
-    }
+    if (boardObstaclesPos[n - i - 1][i - 1] !== "X") ret++;
+    if (boardObstaclesPos[n - i - 1][i - 1] === "X") break;
   }
 
   return ret - 1;
