@@ -35,7 +35,7 @@ class Student extends Person {
     console.log(a);
     if (90 <= a && a <= 100) {
       return "O";
-    } else if (90 <= a && a < 90) {
+    } else if (80 <= a && a < 90) {
       return "E";
     } else if (70 <= a && a < 80) {
       return "A";
