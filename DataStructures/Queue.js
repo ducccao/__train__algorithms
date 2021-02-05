@@ -1,7 +1,7 @@
 // Queue
 // Insert at the end of the queue and is removed from the front of the queue
-// LAST IN FIRST OUT
-// LIFO
+// FIRST IN FIRST OUT
+// FIFO
 
 class Queue {
   constructor() {

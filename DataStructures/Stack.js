@@ -1,59 +1,39 @@
-const MAXSIZE = 50;
-function Stack() {
-  this.dataStore = [];
-  this.top = 0;
-  this.push = push;
-  this.pop = pop;
-  this.peek = peek;
-  this.length = length;
-  this.clear = clear;
-  this.isFull = isFull;
-  this.isEmpty = isEmpty;
-  this.MAXSIZE = MAXSIZE;
+// Stack
+// Insert at the end of stack and removed from the end
+// LAST IN FIRST OUT or FIRST IN LAST OUT
+// LIFO or FILO
 
-  function push(ele) {
-    return (this.dataStore[this.top++] = ele);
+class Stack {
+  constructor() {
+    this.items = [];
   }
-
-  function pop() {
-    return this.dataStore[--this.top];
+  push(element) {
+    // Add element at the end of the stack
+    this.items.push(element);
   }
-
-  function peek() {
-    return this.dataStore[this.top - 1];
+  pop() {
+    // return a top most  ele  of the stack
+    // and remove it from the stack
+    if (this.isEmpty()) return "Underflow";
+    return this.items.pop();
   }
-
-  function length() {
-    return this.top;
+  peek() {
+    // return the top most ele of the stack
+    return this.items[this.items.length - 1];
   }
-
-  function clear() {
-    this.top = 0;
-    this.dataStore.length = 0;
+  isEmpty() {
+    return this.items.length === 0;
   }
-
-  function isFull() {
-    return this.top === MAXSIZE;
-  }
-  function isEmpty() {
-    return this.top === 0;
+  printStack() {
+    for (let i = 0; i < this.items.length; ++i) console.log(this.items[i]);
   }
 }
 
-const a = new Stack();
+const s = new Stack();
+s.push(1);
+s.push(2);
+s.push(3);
 
-a.push(1);
-a.push(2);
-a.push(3);
+s.pop();
 
-console.log(a);
-console.log(a.pop());
-console.log(a.peek());
-
-console.log("Is full ", a.isFull());
-console.log("Is empty ", a.isEmpty());
-
-a.clear();
-console.log("A after clear");
-console.log(a);
-console.log("Is empty ", a.isEmpty());
+s.printStack();
