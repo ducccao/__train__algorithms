@@ -17,11 +17,9 @@ function checkMail(email) {
 }
 
 function f(x, y) {
-  const ret = [];
   if (y.match(/(@gmail.com)$/g)) {
-    ret.push(x);
+    return x;
   }
-  console.log(ob);
 }
 
 f("riyaS", "ria@gmai.com");
