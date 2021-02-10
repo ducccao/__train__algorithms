@@ -19,6 +19,12 @@ app.get("/", function (req, res) {
   });
 });
 
+app.get("/cal", (req, res) => {
+  res.render("vwCalculator/cal.hbs", {
+    layout: false,
+  });
+});
+
 const PORT = 1212;
 app.listen(PORT, () => {
   console.log(`Server is start at ${PORT}`);
