@@ -21,16 +21,6 @@ process.on("SIGINT", function () {
   process.exit();
 });
 
-// process.stdin.on("end", function () {
-//   inputString = inputString
-//     .replace(/\s*$/, "")
-//     .split("\n")
-//     .map((str) => str.replace(/\s*$/, ""));
-
-//   console.log("Ended STDIN\n");
-//   main();
-// });
-
 function readline() {
   return inputString[currentLine++];
 }
