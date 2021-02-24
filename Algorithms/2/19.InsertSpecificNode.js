@@ -70,10 +70,11 @@ function insertNodeAtPosition(headPure, data, position) {
   let c = 0;
 
   while (head !== null) {
-    console.log(head);
+    //    console.log(head);
 
     if (c === position) {
       const savePos = head.next;
+      console.log(savePos);
       head.next = newNode;
       newNode.next = savePos;
       break;
