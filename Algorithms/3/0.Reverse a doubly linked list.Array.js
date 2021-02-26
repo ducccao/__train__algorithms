@@ -63,10 +63,21 @@ function printDoublyLinkedList(node, sep, ws) {
     }
   }
 }
-function reverse(head) {}
+function reverse(head) {
+  const ret = [];
+
+  for (let i = head; i !== null; i = i.next) {
+    ret.push(i.data);
+  }
+
+  for (let i = ret.length - 1, cur = head; i >= 0; i--, cur = cur.next) {
+    cur.data = ret[i];
+  }
+  return head;
+}
 
 function main() {
-  const ws = fs.createWriteStream(process.env.OUTPUT_PATH);
+  const ws = fs.createWriteStream(__dirname + "/ret.txt");
 
   const t = parseInt(readLine(), 10);
 
