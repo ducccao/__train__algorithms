@@ -84,22 +84,10 @@ function logll(head) {
 }
 
 function reversePrint(head) {
-  if (head === null) {
-    console.log("");
-  }
-
-  const ret = [];
-
-  var cur = head;
-  while (cur) {
-    if (cur.data !== null) {
-      ret.push(cur.data);
-    }
-    cur = cur.next;
-  }
-
-  for (let i = 0; i < ret.length; i++) {
-    console.log(ret[ret.length - i - 1]);
+  if (head === null) console.log("");
+  else {
+    reversePrint(head.next);
+    console.log(head.data);
   }
 }
 function main() {
