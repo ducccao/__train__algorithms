@@ -56,7 +56,8 @@ function climbingLeaderboard(ranked, player) {
   /**
    * Try 5 idea
    *
-   * 100 90 90 80 70 80
+   * 100 90 90 80
+   * 5   25 30 120
    *
    */
 
@@ -71,6 +72,7 @@ function climbingLeaderboard(ranked, player) {
     for (let j = 0; j < check.length; ++j) {
       if (check[j] === player[i]) {
         ret.push(j + 1);
+        break;
       }
     }
     ranked.pop();
