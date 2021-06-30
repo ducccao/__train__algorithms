@@ -62,9 +62,10 @@ function climbingLeaderboard(ranked, player) {
    *
    */
 
-  // o(n)
   let carry = {};
   let ret = [];
+
+  // O(n*(nlogn+n))
 
   for (let i = 0; i < player.length; ++i) {
     ranked.push(player[i]);
