@@ -1,3 +1,62 @@
+function swap(a, i, j) {
+  var temp = a[i];
+  a[i] = a[j];
+  a[j] = temp;
+}
+
+function partition(a, left, right) {
+  var pivot = a[Math.floor((left + right) / 2)],
+    i = left,
+    j = right;
+
+  while (i <= j) {
+    while (a[i] > pivot) {
+      i++;
+    }
+    while (a[j] < pivot) {
+      j--;
+    }
+
+    if (i <= j) {
+      swap(a, i, j);
+      i++;
+      j--;
+    }
+  }
+  return i;
+}
+
+function quickSort(a, left, right) {
+  /**
+   * 0   1   2  3   4
+   * 100 150 90 80 70, pivot  = 2
+   *          |
+   *  ^             ^
+   *  + check from the left to pivot, if ele[i] is less than pivot then point to next index
+   *  + check from the right to pivot, if ele[i] is greater than  pivot then point to previous index
+   *  + increment the left pointer and decrement the right pointer
+   *  +
+   * ^        |     ^
+   *
+   *
+   */
+
+  var index;
+
+  if (a.length > 1) {
+    index = partition(a, left, right);
+
+    if (left < index - 1) {
+      quickSort(a, left, index - 1);
+    }
+    if (index < right) {
+      quickSort(a, index, right);
+    }
+  }
+
+  return a;
+}
+
 function binarySearchCustom(a, ele, start, end) {
   /**
    * Input: sorted array descending, element to find
@@ -33,11 +92,24 @@ function rankingEleInArray(a, ele) {
    * after get index, then it will be a rank
    * loop ret then if ele in ret = ele then return index
    */
+  const carry = {};
+  let ret = [];
+
+  for (let i = 0; i < a.length; ++i) {
+    if (carry[a[i]]) {
+    } else {
+      ret.push(a[i]);
+      carry[a[i]] = (carry[a[i]] || 0) + 1;
+    }
+  }
+  ret = quickSort(ret, 0, ret.length - 1);
 
   // This search algorithm work in O(n)
 
   // Use Binary seach O(log(n))
-  const index = binarySearchCustom(a, ele, 0, a.length);
+  // console.log(a);
+  const index = binarySearchCustom(ret, ele, 0, ret.length - 1);
+
   return index + 1;
 }
 
@@ -61,28 +133,19 @@ function climbingLeaderboard(ranked, player) {
    *
    */
 
-  var checkRank = [];
   const ret = [];
-
-  let carry = {};
-
-  for (let i = 0; i < ranked.length; ++i) {
-    if (!carry[ranked[i]]) {
-      checkRank.push(ranked[i]);
-      carry[ranked[i]] = (carry[ranked[i]] || 0) + 1;
-    }
-  }
-
+  // how to open this loop
   for (let ele of player) {
-    checkRank.push(ele);
-    checkRank.sort((a, b) => b - a);
-    ret.push(rankingEleInArray(checkRank, ele));
-    checkRank.pop();
+    ranked.push(ele);
+    ret.push(rankingEleInArray(ranked, ele));
+    ranked.pop();
   }
 
   return ret;
 }
 
-const ranked = [100, 90, 90, 80, 75, 60];
-const player = [50, 65, 77, 90, 102];
+const ip = '100 100 50 40 40 20 10';
+const ipp = '5 25 50 120';
+const ranked = ip.split(' ').map((e) => +e);
+const player = ipp.split(' ').map((e) => +e);
 console.log(climbingLeaderboard(ranked, player));
