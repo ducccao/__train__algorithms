@@ -131,8 +131,14 @@ function climbingLeaderboard(ranked, player) {
    * Step 1: loop ranked, loop p
    * Step 2: get rank of player [i]
    *
+   * This solution has the time complexity is O(n^2+ n*log(n) +log(n))
    */
 
+  /**
+   *
+   *
+   *
+   */
   const ret = [];
   // how to open this loop
   for (let ele of player) {
